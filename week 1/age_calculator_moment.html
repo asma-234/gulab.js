@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Age Calculator</title>
+<!-- Load Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<style>
+    body {
+display: flex;
+height: 100vh;
+justify-content: center;
+align-items: center;
+font-family: Arial, sans-serif;
+background: #f0f2f5;
+    }
+    .container {
+background: white;
+padding: 20px;
+border-radius: 10px;
+text-align: center;
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    input, button {
+margin-top: 10px;
+padding: 8px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Age Calculator</h2>
+    <p>Enter your birth date:</p>
+    <input type="date" id="birthdate">
+    <br>
+    <button id="calcBtn">Calculate</button>
+    <p id="result"></p>
+</div>
+
+<script>
+    document.getElementById("calcBtn").addEventListener("click", function() {
+const birthVal = document.getElementById("birthdate").value;
+if (!birthVal) {
+        document.getElementById("result").innerText = "Please select a date.";
+        return;
+}
+
+const birth = moment(birthVal, "YYYY-MM-DD");
+const now = moment();
+
+let years = now.diff(birth, 'years');
+birth.add(years, 'years');
+let months = now.diff(birth, 'months');
+birth.add(months, 'months');
+let days = now.diff(birth, 'days');
+
+document.getElementById("result").innerText = 
+        `Your age is ${years} years, ${months} months, and ${days} days.`;
+    });
+</script>
+</body>
+</html>
