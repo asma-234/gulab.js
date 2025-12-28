@@ -1,0 +1,22 @@
+<h1>Articles</h1>
+
+<% if (user) { %>
+  <p>Logged in as <%= user.email %> (<%= user.role %>)</p>
+  <a href="/articles/new">New Article</a> |
+  <a href="/logout">Logout</a>
+<% } else { %>
+  <a href="/login">Login</a>
+<% } %>
+
+<ul>
+<% articles.forEach(a => { %>
+  <li>
+    <b><%= a.title %></b> - <%= a.user.email %>
+    <% if (user && (user.role === 'ADMIN' || user.id === a.userId)) { %>
+      <form method="POST" action="/articles/delete/<%= a.id %>">
+        <button>Delete</button>
+      </form>
+    <% } %>
+  </li>
+<% }) %>
+</ul>
